@@ -3,6 +3,8 @@ package com.lk.copmutershop.bean;
 import java.util.Date;
 
 public class Apply {
+
+
     private Integer applyId;
 
     private Integer goodsId;
