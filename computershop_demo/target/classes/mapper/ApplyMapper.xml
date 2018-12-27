@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.copmutershop.dao.ApplyMapper">
+  <resultMap id="BaseResultMap" type="com.lk.copmutershop.bean.Apply">
+    <id column="Apply_Id" jdbcType="INTEGER" property="applyId" />
+    <result column="Goods_Id" jdbcType="INTEGER" property="goodsId" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Apply_time" jdbcType="DATE" property="applyTime" />
+    <result column="Apply_describe" jdbcType="VARCHAR" property="applyDescribe" />
+    <result column="Status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Apply_Id, Goods_Id, Account, Apply_time, Apply_describe, Status
+  </sql>
+  <select id="selectByExample" parameterType="com.lk.copmutershop.bean.ApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from apply
+    where Apply_Id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply
+    where Apply_Id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lk.copmutershop.bean.ApplyExample">
+    delete from apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lk.copmutershop.bean.Apply">
+    insert into apply (Apply_Id, Goods_Id, Account, 
+      Apply_time, Apply_describe, Status
+      )
+    values (#{applyId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=DATE}, #{applyDescribe,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.copmutershop.bean.Apply">
+    insert into apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        Apply_Id,
+      </if>
+      <if test="goodsId != null">
+        Goods_Id,
+      </if>
+      <if test="account != null">
+        Account,
+      </if>
+      <if test="applyTime != null">
+        Apply_time,
+      </if>
+      <if test="applyDescribe != null">
+        Apply_describe,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=DATE},
+      </if>
+      <if test="applyDescribe != null">
+        #{applyDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lk.copmutershop.bean.ApplyExample" resultType="java.lang.Long">
+    select count(*) from apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update apply
+    <set>
+      <if test="record.applyId != null">
+        Apply_Id = #{record.applyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        Account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyTime != null">
+        Apply_time = #{record.applyTime,jdbcType=DATE},
+      </if>
+      <if test="record.applyDescribe != null">
+        Apply_describe = #{record.applyDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update apply
+    set Apply_Id = #{record.applyId,jdbcType=INTEGER},
+      Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      Account = #{record.account,jdbcType=VARCHAR},
+      Apply_time = #{record.applyTime,jdbcType=DATE},
+      Apply_describe = #{record.applyDescribe,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.copmutershop.bean.Apply">
+    update apply
+    <set>
+      <if test="goodsId != null">
+        Goods_Id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        Account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        Apply_time = #{applyTime,jdbcType=DATE},
+      </if>
+      <if test="applyDescribe != null">
+        Apply_describe = #{applyDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Apply_Id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.copmutershop.bean.Apply">
+    update apply
+    set Goods_Id = #{goodsId,jdbcType=INTEGER},
+      Account = #{account,jdbcType=VARCHAR},
+      Apply_time = #{applyTime,jdbcType=DATE},
+      Apply_describe = #{applyDescribe,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=INTEGER}
+    where Apply_Id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <!--   //根据状态码查  List<Apply> selectapply(Integer status); -->
+   <select id="selectapply" parameterType="java.lang.Integer" resultMap="applyMap">
+    select  * from apply,goods where apply.Goods_Id=goods.Goods_Id  AND Status = #{status,jdbcType=INTEGER}
+  </select>
+	<!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+	<resultMap type="com.lk.copmutershop.bean.Apply" id="applyMap">
+	        <id column="Apply_Id" jdbcType="INTEGER" property="applyId" />
+            <result column="Account" jdbcType="VARCHAR" property="account" />
+            <result column="Apply_time" jdbcType="DATE" property="applyTime" />
+            <result column="Apply_describe" jdbcType="VARCHAR" property="applyDescribe" />
+            <result column="Status" jdbcType="INTEGER" property="status" />
+		<association property="goods" javaType="com.lk.copmutershop.bean.Goods">
+            <id property="goodsId" jdbcType="INTEGER" column="Goods_Id" />
+		    <result column="Account" jdbcType="VARCHAR" property="account" />
+			<result column="Goods_name" jdbcType="VARCHAR" property="goodsName" />
+			<result column="Goods_phone" jdbcType="VARCHAR" property="goodsPhone" />
+			<result column="Type_Id" jdbcType="INTEGER" property="typeId" />
+			<result column="Goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+			<result column="Goods_oldprice" jdbcType="DOUBLE" property="goodsOldprice" />
+			<result column="Trade_mode" jdbcType="VARCHAR" property="tradeMode" />
+			<result column="Relase_time" jdbcType="TIMESTAMP" property="relaseTime" />
+			<result column="Goods_describe" jdbcType="VARCHAR" property="goodsDescribe" />
+			<result column="Goods_category" jdbcType="VARCHAR" property="goodsCategory" />			
+		</association>
+	</resultMap>
+</mapper>

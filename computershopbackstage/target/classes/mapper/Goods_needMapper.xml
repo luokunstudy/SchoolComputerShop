@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.computershopbackstage.dao.Goods_needMapper">
+  <resultMap id="BaseResultMap" type="com.lk.computershopbackstage.bean.Goods_need">
+    <id column="Mseeage_Id" jdbcType="INTEGER" property="mseeageId" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Goods_Name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="Goods_describe" jdbcType="VARCHAR" property="goodsDescribe" />
+    <result column="Trade_mode" jdbcType="VARCHAR" property="tradeMode" />
+    <result column="Contact" jdbcType="VARCHAR" property="contact" />
+    <result column="Relase_time" jdbcType="DATE" property="relaseTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Mseeage_Id, Account, Goods_Name, Goods_describe, Trade_mode, Contact, Relase_time
+  </sql>
+
+  <delete id="deleteByExample" parameterType="com.lk.computershopbackstage.bean.Goods_needExample">
+    delete from goods_need
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lk.computershopbackstage.bean.Goods_need">
+    insert into goods_need (Mseeage_Id, Account, Goods_Name, 
+      Goods_describe, Trade_mode, Contact, 
+      Relase_time)
+    values (#{mseeageId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsDescribe,jdbcType=VARCHAR}, #{tradeMode,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{relaseTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.computershopbackstage.bean.Goods_need">
+    insert into goods_need
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mseeageId != null">
+        Mseeage_Id,
+      </if>
+      <if test="account != null">
+        Account,
+      </if>
+      <if test="goodsName != null">
+        Goods_Name,
+      </if>
+      <if test="goodsDescribe != null">
+        Goods_describe,
+      </if>
+      <if test="tradeMode != null">
+        Trade_mode,
+      </if>
+      <if test="contact != null">
+        Contact,
+      </if>
+      <if test="relaseTime != null">
+        Relase_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mseeageId != null">
+        #{mseeageId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDescribe != null">
+        #{goodsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMode != null">
+        #{tradeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="relaseTime != null">
+        #{relaseTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lk.computershopbackstage.bean.Goods_needExample" resultType="java.lang.Long">
+    select count(*) from goods_need
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods_need
+    <set>
+      <if test="record.mseeageId != null">
+        Mseeage_Id = #{record.mseeageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        Account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null">
+        Goods_Name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsDescribe != null">
+        Goods_describe = #{record.goodsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeMode != null">
+        Trade_mode = #{record.tradeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        Contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relaseTime != null">
+        Relase_time = #{record.relaseTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods_need
+    set Mseeage_Id = #{record.mseeageId,jdbcType=INTEGER},
+      Account = #{record.account,jdbcType=VARCHAR},
+      Goods_Name = #{record.goodsName,jdbcType=VARCHAR},
+      Goods_describe = #{record.goodsDescribe,jdbcType=VARCHAR},
+      Trade_mode = #{record.tradeMode,jdbcType=VARCHAR},
+      Contact = #{record.contact,jdbcType=VARCHAR},
+      Relase_time = #{record.relaseTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.computershopbackstage.bean.Goods_need">
+    update goods_need
+    <set>
+      <if test="account != null">
+        Account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        Goods_Name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDescribe != null">
+        Goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeMode != null">
+        Trade_mode = #{tradeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        Contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="relaseTime != null">
+        Relase_time = #{relaseTime,jdbcType=DATE},
+      </if>
+    </set>
+    where Mseeage_Id = #{mseeageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.computershopbackstage.bean.Goods_need">
+    update goods_need
+    set Account = #{account,jdbcType=VARCHAR},
+      Goods_Name = #{goodsName,jdbcType=VARCHAR},
+      Goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+      Trade_mode = #{tradeMode,jdbcType=VARCHAR},
+      Contact = #{contact,jdbcType=VARCHAR},
+      Relase_time = #{relaseTime,jdbcType=DATE}
+    where Mseeage_Id = #{mseeageId,jdbcType=INTEGER}
+  </update>
+<!--   //查询所有商品需求信息 -->
+  <select id="selectByExample" parameterType="com.lk.computershopbackstage.bean.Goods_needExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_need
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!--/按商品需求信息编号查  -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_need
+    where Mseeage_Id = #{mseeageId,jdbcType=INTEGER}
+  </select>
+  <!--  //按商品需求信息发布者编号查  List<Goods_need> selectaccount(String  account); -->
+  <select id="selectaccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_need
+    where Account = #{account,jdbcType=VARCHAR}
+  </select>
+  <!--  //按需求商品名称查	  List<Goods_need> selectname(String  goodsName);	 -->
+  <select id="selectname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_need
+    where Goods_Name = #{goodsName,jdbcType=VARCHAR}
+  </select>
+    <!--//按商品需求信息编号删除  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods_need
+    where Mseeage_Id = #{mseeageId,jdbcType=INTEGER}
+  </delete>
+</mapper>

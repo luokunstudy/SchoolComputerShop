@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.copmutershop.dao.ShopcartMapper">
+  <resultMap id="BaseResultMap" type="com.lk.copmutershop.bean.Shopcart">
+    <id column="Cart_Id" jdbcType="INTEGER" property="cartId" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Goods_Id" jdbcType="INTEGER" property="goodsId" />
+    <result column="Account_id" jdbcType="VARCHAR" property="accountId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Cart_Id, Account, Goods_Id, Account_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lk.copmutershop.bean.ShopcartExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shopcart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopcart
+    where Cart_Id = #{cartId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopcart
+    where Cart_Id = #{cartId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lk.copmutershop.bean.ShopcartExample">
+    delete from shopcart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lk.copmutershop.bean.Shopcart">
+    insert into shopcart (Cart_Id, Account, Goods_Id, 
+      Account_id)
+    values (#{cartId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{accountId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lk.copmutershop.bean.Shopcart">
+    insert into shopcart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cartId != null">
+        Cart_Id,
+      </if>
+      <if test="account != null">
+        Account,
+      </if>
+      <if test="goodsId != null">
+        Goods_Id,
+      </if>
+      <if test="accountId != null">
+        Account_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cartId != null">
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lk.copmutershop.bean.ShopcartExample" resultType="java.lang.Long">
+    select count(*) from shopcart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shopcart
+    <set>
+      <if test="record.cartId != null">
+        Cart_Id = #{record.cartId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        Account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null">
+        Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountId != null">
+        Account_id = #{record.accountId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shopcart
+    set Cart_Id = #{record.cartId,jdbcType=INTEGER},
+      Account = #{record.account,jdbcType=VARCHAR},
+      Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      Account_id = #{record.accountId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.copmutershop.bean.Shopcart">
+    update shopcart
+    <set>
+      <if test="account != null">
+        Account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        Goods_Id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null">
+        Account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Cart_Id = #{cartId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.copmutershop.bean.Shopcart">
+    update shopcart
+    set Account = #{account,jdbcType=VARCHAR},
+      Goods_Id = #{goodsId,jdbcType=INTEGER},
+      Account_id = #{accountId,jdbcType=VARCHAR}
+    where Cart_Id = #{cartId,jdbcType=INTEGER}
+  </update>
+   <!--  //查询购物车信息  List<Shopcart> selectcart(String accountId); -->
+ 	<select id="selectcart" parameterType="java.lang.String" resultMap="shopcartmap">	
+		select * from shopcart,goods
+        WHERE shopcart.Goods_Id=goods.Goods_Id AND shopcart.Account_id=#{accountId,jdbcType=VARCHAR}
+        order by Cart_Id desc
+	</select>
+	<!-- 使用resultMap映射实体类和字段之间的一一对应关系 -->
+	<resultMap type="com.lk.copmutershop.bean.Shopcart" id="shopcartmap">
+	        <id property="cartId" column="Cart_Id" />
+			<result column="Account" jdbcType="VARCHAR" property="account" />
+			<result column="number" jdbcType="INTEGER" property="number" />
+			<result column="Account_id" jdbcType="VARCHAR" property="accountId" />
+		<association property="goods" javaType="com.lk.copmutershop.bean.Goods">
+			<id property="goodsId" column="Goods_Id" />
+		    <result column="Account" jdbcType="VARCHAR" property="account" />
+			<result column="Goods_name" jdbcType="VARCHAR" property="goodsName" />
+			<result column="Goods_phone" jdbcType="VARCHAR" property="goodsPhone" />
+			<result column="Type_Id" jdbcType="INTEGER" property="typeId" />
+			<result column="Goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+			<result column="Goods_oldprice" jdbcType="DOUBLE" property="goodsOldprice" />
+			<result column="Trade_mode" jdbcType="VARCHAR" property="tradeMode" />
+			<result column="Relase_time" jdbcType="TIMESTAMP" property="relaseTime" />
+			<result column="Goods_describe" jdbcType="VARCHAR" property="goodsDescribe" />
+			<result column="Goods_category" jdbcType="VARCHAR" property="goodsCategory" />		
+		</association>
+	</resultMap>
+</mapper>

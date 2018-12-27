@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.computershopbackstage.dao.WordsMapper">
+  <resultMap id="BaseResultMap" type="com.lk.computershopbackstage.bean.Words">
+    <id column="Words_Id" jdbcType="INTEGER" property="wordsId" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Goods_Id" jdbcType="INTEGER" property="goodsId" />
+    <result column="Words_content" jdbcType="VARCHAR" property="wordsContent" />
+    <result column="Words_time" jdbcType="DATE" property="wordsTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Words_Id, Account, Goods_Id, Words_content, Words_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from words
+    where Words_Id = #{wordsId,jdbcType=INTEGER}
+  </select>
+ 
+  <delete id="deleteByExample" parameterType="com.lk.computershopbackstage.bean.WordsExample">
+    delete from words
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+ 
+  <insert id="insertSelective" parameterType="com.lk.computershopbackstage.bean.Words">
+    insert into words
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wordsId != null">
+        Words_Id,
+      </if>
+      <if test="account != null">
+        Account,
+      </if>
+      <if test="goodsId != null">
+        Goods_Id,
+      </if>
+      <if test="wordsContent != null">
+        Words_content,
+      </if>
+      <if test="wordsTime != null">
+        Words_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wordsId != null">
+        #{wordsId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="wordsContent != null">
+        #{wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsTime != null">
+        #{wordsTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lk.computershopbackstage.bean.WordsExample" resultType="java.lang.Long">
+    select count(*) from words
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update words
+    <set>
+      <if test="record.wordsId != null">
+        Words_Id = #{record.wordsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        Account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsId != null">
+        Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wordsContent != null">
+        Words_content = #{record.wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wordsTime != null">
+        Words_time = #{record.wordsTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update words
+    set Words_Id = #{record.wordsId,jdbcType=INTEGER},
+      Account = #{record.account,jdbcType=VARCHAR},
+      Goods_Id = #{record.goodsId,jdbcType=INTEGER},
+      Words_content = #{record.wordsContent,jdbcType=VARCHAR},
+      Words_time = #{record.wordsTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.computershopbackstage.bean.Words">
+    update words
+    <set>
+      <if test="account != null">
+        Account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        Goods_Id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="wordsContent != null">
+        Words_content = #{wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsTime != null">
+        Words_time = #{wordsTime,jdbcType=DATE},
+      </if>
+    </set>
+    where Words_Id = #{wordsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.computershopbackstage.bean.Words">
+    update words
+    set Account = #{account,jdbcType=VARCHAR},
+      Goods_Id = #{goodsId,jdbcType=INTEGER},
+      Words_content = #{wordsContent,jdbcType=VARCHAR},
+      Words_time = #{wordsTime,jdbcType=DATE}
+    where Words_Id = #{wordsId,jdbcType=INTEGER}
+  </update>
+
+   <insert id="insert" parameterType="com.lk.computershopbackstage.bean.Words">
+    insert into words (Words_Id, Account, Goods_Id, 
+      Words_content, Words_time)
+    values (#{wordsId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{wordsContent,jdbcType=VARCHAR}, #{wordsTime,jdbcType=DATE})
+  </insert>
+<!--     //查询所欲留言 -->
+  <select id="selectByExample" parameterType="com.lk.computershopbackstage.bean.WordsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from words
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+<!--     //按商品编号查    List<Words> selectwordsgoodsId(Integer wordsId); -->
+ <select id="selectwordsgoodsId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from words
+    where  Goods_Id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <!--    //删除留言   int deleteByPrimaryKey(Integer wordsId);    -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from words
+    where Words_Id = #{wordsId,jdbcType=INTEGER}
+  </delete>
+</mapper>

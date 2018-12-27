@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.computershopbackstage.dao.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.lk.computershopbackstage.bean.Notice">
+    <id column="Notice_Id" jdbcType="INTEGER" property="noticeId" />
+    <result column="Words_title" jdbcType="VARCHAR" property="wordsTitle" />
+    <result column="Words_content" jdbcType="VARCHAR" property="wordsContent" />
+    <result column="Words_time" jdbcType="DATE" property="wordsTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Notice_Id, Words_title, Words_content, Words_time
+  </sql>
+  
+ 
+  
+  <delete id="deleteByExample" parameterType="com.lk.computershopbackstage.bean.NoticeExample">
+    delete from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.lk.computershopbackstage.bean.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        Notice_Id,
+      </if>
+      <if test="wordsTitle != null">
+        Words_title,
+      </if>
+      <if test="wordsContent != null">
+        Words_content,
+      </if>
+      <if test="wordsTime != null">
+        Words_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="wordsTitle != null">
+        #{wordsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsContent != null">
+        #{wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsTime != null">
+        #{wordsTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lk.computershopbackstage.bean.NoticeExample" resultType="java.lang.Long">
+    select count(*) from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notice
+    <set>
+      <if test="record.noticeId != null">
+        Notice_Id = #{record.noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wordsTitle != null">
+        Words_title = #{record.wordsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wordsContent != null">
+        Words_content = #{record.wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wordsTime != null">
+        Words_time = #{record.wordsTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notice
+    set Notice_Id = #{record.noticeId,jdbcType=INTEGER},
+      Words_title = #{record.wordsTitle,jdbcType=VARCHAR},
+      Words_content = #{record.wordsContent,jdbcType=VARCHAR},
+      Words_time = #{record.wordsTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lk.computershopbackstage.bean.Notice">
+    update notice
+    <set>
+      <if test="wordsTitle != null">
+        Words_title = #{wordsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsContent != null">
+        Words_content = #{wordsContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wordsTime != null">
+        Words_time = #{wordsTime,jdbcType=DATE},
+      </if>
+    </set>
+    where Notice_Id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lk.computershopbackstage.bean.Notice">
+    update notice
+    set Words_title = #{wordsTitle,jdbcType=VARCHAR},
+      Words_content = #{wordsContent,jdbcType=VARCHAR},
+      Words_time = #{wordsTime,jdbcType=DATE}
+    where Notice_Id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <!-- //发布公告 -->
+  <insert id="insert" parameterType="com.lk.computershopbackstage.bean.Notice">
+    insert into notice (Notice_Id, Words_title, Words_content, 
+      Words_time)
+    values (#{noticeId,jdbcType=INTEGER}, #{wordsTitle,jdbcType=VARCHAR}, #{wordsContent,jdbcType=VARCHAR}, 
+      #{wordsTime,jdbcType=DATE})
+  </insert>
+ <!--  //查看公告 -->
+ <select id="selectByExample" parameterType="com.lk.computershopbackstage.bean.NoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+<!--   	//按时间查询 List<Notice> selectnoticetime(Date wordsTime); -->
+ <select id="selectnoticetime" parameterType="Date" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where Words_time =#{wordsTime,jdbcType=DATE}
+  </select>
+<!--   	//按标题查询 List<Notice> selectnoticetitle(String wordsTitle); -->
+ <select id="selectnoticetitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where Words_title like '%${_parameter}%'
+  </select>
+ <!--  //删除公告 -->
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where Notice_Id = #{noticeId,jdbcType=INTEGER}
+  </delete>
+</mapper>
